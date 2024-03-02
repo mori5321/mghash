@@ -20,5 +20,5 @@ pnpm exec supabase migration up
 
 ## Gen Types of Schema
 ```
-pnpm exec supabase gen types typescript --local --schema app --schema public > ./apps/web/src/app/server/infra/database.types.ts
+make gen.schema
 ```
