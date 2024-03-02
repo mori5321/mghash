@@ -46,7 +46,76 @@ export interface Database {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      authors: {
+        Row: {
+          author_id: string
+          created_at: string | null
+        }
+        Insert: {
+          author_id: string
+          created_at?: string | null
+        }
+        Update: {
+          author_id?: string
+          created_at?: string | null
+        }
+        Relationships: []
+      }
+      mangas: {
+        Row: {
+          author_id: string
+          created_at: string | null
+          title: string
+          tweet_id: string
+        }
+        Insert: {
+          author_id: string
+          created_at?: string | null
+          title: string
+          tweet_id: string
+        }
+        Update: {
+          author_id?: string
+          created_at?: string | null
+          title?: string
+          tweet_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mangas_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "authors"
+            referencedColumns: ["author_id"]
+          }
+        ]
+      }
+      pages: {
+        Row: {
+          created_at: string | null
+          page_number: number
+          tweet_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          page_number: number
+          tweet_id: string
+        }
+        Update: {
+          created_at?: string | null
+          page_number?: number
+          tweet_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pages_tweet_id_fkey"
+            columns: ["tweet_id"]
+            isOneToOne: false
+            referencedRelation: "mangas"
+            referencedColumns: ["tweet_id"]
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never
