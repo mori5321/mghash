@@ -48,45 +48,74 @@ export interface Database {
     Tables: {
       authors: {
         Row: {
-          author_id: string
           created_at: string | null
+          tw_author_id: string
         }
         Insert: {
-          author_id: string
           created_at?: string | null
+          tw_author_id: string
         }
         Update: {
-          author_id?: string
           created_at?: string | null
+          tw_author_id?: string
         }
         Relationships: []
       }
-      mangas: {
+      images: {
         Row: {
-          author_id: string
-          created_at: string | null
-          title: string
-          tweet_id: string
+          id: string
+          image_number: number
+          tw_tweet_id: string
+          url: string
         }
         Insert: {
-          author_id: string
-          created_at?: string | null
-          title: string
-          tweet_id: string
+          id?: string
+          image_number: number
+          tw_tweet_id: string
+          url: string
         }
         Update: {
-          author_id?: string
-          created_at?: string | null
-          title?: string
-          tweet_id?: string
+          id?: string
+          image_number?: number
+          tw_tweet_id?: string
+          url?: string
         }
         Relationships: [
           {
-            foreignKeyName: "mangas_author_id_fkey"
-            columns: ["author_id"]
+            foreignKeyName: "images_tw_tweet_id_fkey"
+            columns: ["tw_tweet_id"]
+            isOneToOne: false
+            referencedRelation: "pages"
+            referencedColumns: ["tw_tweet_id"]
+          }
+        ]
+      }
+      mangas: {
+        Row: {
+          created_at: string | null
+          posted_at: string
+          tw_author_id: string
+          tw_conversation_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          posted_at: string
+          tw_author_id: string
+          tw_conversation_id: string
+        }
+        Update: {
+          created_at?: string | null
+          posted_at?: string
+          tw_author_id?: string
+          tw_conversation_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mangas_tw_author_id_fkey"
+            columns: ["tw_author_id"]
             isOneToOne: false
             referencedRelation: "authors"
-            referencedColumns: ["author_id"]
+            referencedColumns: ["tw_author_id"]
           }
         ]
       }
@@ -94,25 +123,34 @@ export interface Database {
         Row: {
           created_at: string | null
           page_number: number
-          tweet_id: string
+          text: string
+          tw_author_id: string
+          tw_conversation_id: string
+          tw_tweet_id: string
         }
         Insert: {
           created_at?: string | null
           page_number: number
-          tweet_id: string
+          text: string
+          tw_author_id: string
+          tw_conversation_id: string
+          tw_tweet_id: string
         }
         Update: {
           created_at?: string | null
           page_number?: number
-          tweet_id?: string
+          text?: string
+          tw_author_id?: string
+          tw_conversation_id?: string
+          tw_tweet_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "pages_tweet_id_fkey"
-            columns: ["tweet_id"]
+            foreignKeyName: "pages_tw_conversation_id_fkey"
+            columns: ["tw_conversation_id"]
             isOneToOne: false
             referencedRelation: "mangas"
-            referencedColumns: ["tweet_id"]
+            referencedColumns: ["tw_conversation_id"]
           }
         ]
       }

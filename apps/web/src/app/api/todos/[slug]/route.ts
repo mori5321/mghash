@@ -1,5 +1,5 @@
 import { PostgrestError } from "@supabase/supabase-js";
-import { supabase } from "../../../../server/common/supabase/client";
+import { supabase } from "../../../_lib/common/supabase/client";
 
 const defaultResponseOptions = {
   headers: {
